@@ -93,21 +93,21 @@ const Form = () => {
     setIsSubmit(true);
 
     await Promise.all([
-      fetch(`${process.env.REACT_APP_HOST}/api/form`, {
+      fetch("http://3.111.214.111:5000/api/form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       }),
-      fetch(`${process.env.REACT_APP_HOST}/api/sheet`, {
+      fetch("http://3.111.214.111:5000/api/sheet", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       }),
-      fetch(`${process.env.REACT_APP_HOST}/api/email`, {
+      fetch("http://3.111.214.111:5000/api/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
