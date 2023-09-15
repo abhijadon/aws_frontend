@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,9 +13,9 @@ const Form = () => {
   const [mobile, setMobile] = useState("");
   const [alternate, setAlternate] = useState("");
   const [dob, setDob] = useState("");
-  const [university, setUniversity] = useState('--university--')
-  const [course, setCourse] = useState('--course--')
-  const [subcourse, setSubcourse] = useState('--subcourse--')
+  const [university, setUniversity] = useState("--university--");
+  const [course, setCourse] = useState("--course--");
+  const [subcourse, setSubcourse] = useState("--subcourse--");
   const [courses, setCourses] = useState([]);
   const [subcourses, setSubcourses] = useState([]);
   const [enrollment, setEnrollment] = useState("");
@@ -27,7 +27,7 @@ const Form = () => {
   const [city, setCity] = useState("");
   const [postoffice, setPostoffice] = useState("");
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+
   const handleChange = (e) => {
     if (e.target.name === "name") {
       setName(e.target.value);
@@ -90,7 +90,6 @@ const Form = () => {
     };
     e.preventDefault();
     setFormErrors(validate(data));
-    setIsSubmit(true);
 
     await Promise.all([
       fetch("http://3.111.214.111:5000/api/form", {
@@ -149,11 +148,6 @@ const Form = () => {
     });
   };
 
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.warn();
-    }
-  }, [formErrors]);
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -179,17 +173,19 @@ const Form = () => {
 
   const changeUniversity = (e) => {
     setUniversity(e.target.value);
-    setCourses(universities.find(ctr => ctr.name === e.target.value).courses)
-  }
+    setCourses(universities.find((ctr) => ctr.name === e.target.value).courses);
+  };
 
   const changeCourses = (e) => {
     setCourse(e.target.value);
-    setSubcourses(courses.find(course => course.name === e.target.value).subcourses)
-  }
+    setSubcourses(
+      courses.find((course) => course.name === e.target.value).subcourses
+    );
+  };
 
   const changeSubcourse = (e) => {
-    setSubcourse(e.target.value)
-  }
+    setSubcourse(e.target.value);
+  };
 
   const handleYear = (event) => {
     setPassingyear(event.target.value);
@@ -225,11 +221,6 @@ const Form = () => {
             </h3>
           </div>
         </div>
-        {Object.keys(formErrors).length === 0 && isSubmit ? (
-          <div></div>
-        ) : (
-          <pre>{undefined}</pre>
-        )}
         <form className="w-full form" onSubmit={handleSubmit} method="POST">
           {/* ==========section-1=========== */}
 
@@ -252,7 +243,8 @@ const Form = () => {
                 University
               </label>
               <div className="relative">
-                <select required
+                <select
+                  required
                   name="university"
                   value={university}
                   onChange={changeUniversity}
@@ -284,7 +276,8 @@ const Form = () => {
                 Certificate
               </label>
               <div className="relative">
-                <select required
+                <select
+                  required
                   name="certificate"
                   value={certificate}
                   onChange={handleChange}
@@ -331,7 +324,8 @@ const Form = () => {
                 Name
               </label>
 
-              <input required
+              <input
+                required
                 name="name"
                 value={name}
                 onChange={handleChange}
@@ -349,7 +343,8 @@ const Form = () => {
               >
                 Mother Name
               </label>
-              <input required
+              <input
+                required
                 name="mothername"
                 value={mothername}
                 onChange={handleChange}
@@ -366,7 +361,8 @@ const Form = () => {
               >
                 Father Name
               </label>
-              <input required
+              <input
+                required
                 name="fathername"
                 value={fathername}
                 onChange={handleChange}
@@ -402,7 +398,8 @@ const Form = () => {
               >
                 Email-id
               </label>
-              <input required
+              <input
+                required
                 name="email"
                 value={email}
                 onChange={handleChange}
@@ -435,7 +432,8 @@ const Form = () => {
               >
                 Date of Birth
               </label>
-              <input required
+              <input
+                required
                 name="dob"
                 value={dob}
                 onChange={handleChange}
@@ -458,8 +456,6 @@ const Form = () => {
               </div>
             </div>
             <div className="flex flex-wrap mx-10 mb-2 mt-4">
-
-
               <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -468,7 +464,8 @@ const Form = () => {
                   Course
                 </label>
                 <div className="relative">
-                  <select required
+                  <select
+                    required
                     onChange={changeCourses}
                     name="certificate"
                     value={course}
@@ -476,10 +473,9 @@ const Form = () => {
                     id="course"
                   >
                     <option>--Select Option--</option>
-                    {courses.map(course => (
+                    {courses.map((course) => (
                       <option value={course.name}>{course.name}</option>
                     ))}
-
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg
@@ -501,7 +497,8 @@ const Form = () => {
                   Subcourse
                 </label>
                 <div className="relative">
-                  <select required
+                  <select
+                    required
                     name="certificate"
                     value={subcourse}
                     onChange={changeSubcourse}
@@ -509,7 +506,7 @@ const Form = () => {
                     id="course"
                   >
                     <option>--Select Option--</option>
-                    {subcourses.map(subcourse => (
+                    {subcourses.map((subcourse) => (
                       <option value={subcourse}>{subcourse}</option>
                     ))}
                   </select>
@@ -531,7 +528,8 @@ const Form = () => {
                 >
                   Enrollment number
                 </label>
-                <input required
+                <input
+                  required
                   name="enrollment"
                   value={enrollment}
                   onChange={handleChange}
@@ -565,7 +563,6 @@ const Form = () => {
                     </option>
                   ))}
                 </select>
-
               </div>
             </div>
           </div>
@@ -588,7 +585,8 @@ const Form = () => {
                 >
                   Country
                 </label>
-                <input required
+                <input
+                  required
                   name="country"
                   value={country}
                   onChange={handleChange}
@@ -606,7 +604,8 @@ const Form = () => {
                 >
                   State
                 </label>
-                <input required
+                <input
+                  required
                   name="state"
                   value={state}
                   onChange={handleChange}
@@ -623,7 +622,8 @@ const Form = () => {
                 >
                   City
                 </label>
-                <input required
+                <input
+                  required
                   name="city"
                   value={city}
                   onChange={handleChange}
@@ -640,7 +640,8 @@ const Form = () => {
                 >
                   Zipcode
                 </label>
-                <input required
+                <input
+                  required
                   name="zipcode"
                   value={zipcode}
                   onChange={handleChange}
@@ -657,7 +658,8 @@ const Form = () => {
                 >
                   post-office
                 </label>
-                <input required
+                <input
+                  required
                   name="postoffice"
                   value={postoffice}
                   onChange={handleChange}
@@ -674,7 +676,8 @@ const Form = () => {
                 >
                   House No./apartment/street
                 </label>
-                <input required
+                <input
+                  required
                   name="house"
                   value={house}
                   onChange={handleChange}
@@ -698,7 +701,8 @@ const Form = () => {
             </div>
             <div className="relative flex justify-center md:justify-start items-center md:left-24 pl-3.5 md:pl-2 mt-2">
               <label>
-                <input required
+                <input
+                  required
                   type="checkbox"
                   className="relative top-0.5 -left-1 md:-left-2"
                 />
