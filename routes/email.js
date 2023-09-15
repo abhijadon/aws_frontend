@@ -23,6 +23,8 @@ router.post("/email", (req, res) => {
     zipcode,
     postoffice,
     country,
+    order_status,
+    payment_status,
   } = req.body;
 
   // create a  object
@@ -227,6 +229,22 @@ tr {
             </td>
               <td>
            ${country}
+            </td>
+          </tr>
+           <tr>
+            <td>
+             Country:
+            </td>
+              <td>
+           ${order_status}
+            </td>
+          </tr>
+           <tr>
+            <td>
+             Country:
+            </td>
+              <td>
+           ${payment_status}
             </td>
           </tr>
             </tbody>

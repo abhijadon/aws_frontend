@@ -23,6 +23,8 @@ router.post("/form", function (req, res) {
     zipcode,
     postoffice,
     country,
+    order_status,
+    payment_status,
   } = req.body;
   const sql =
     "INSERT INTO user(certificate, university, name, mothername, fathername, email, mobile, alternate, dob, course, subcourse, enrollment, passingyear, house, state, city, zipcode, postoffice, country ) VALUES ('" +
@@ -63,6 +65,10 @@ router.post("/form", function (req, res) {
     postoffice +
     "', '" +
     country +
+    "', '" +
+    order_status +
+    "', '" +
+    payment_status +
     "') ";
 
   con.query(sql, function (error, result) {

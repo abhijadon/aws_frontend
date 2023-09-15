@@ -27,6 +27,8 @@ router.post("/sheet", async (req, res) => {
       zipcode,
       postoffice,
       country,
+      order_status,
+      payment_status,
     } = req.body;
 
     const auth = new google.auth.GoogleAuth({
@@ -83,6 +85,8 @@ router.post("/sheet", async (req, res) => {
             zipcode,
             postoffice,
             country,
+            order_status,
+            payment_status,
           ],
         ],
       },
